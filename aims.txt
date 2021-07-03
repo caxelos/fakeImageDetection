@@ -1,0 +1,41 @@
+TO DO:
+	- des an uparxei kapoios pretrained encoder
+
+
+DATA PREPROCESS:
+	- 
+	-
+ENCODER:
+	- input 256x256x3 image, output Nx1 feature (find optimal N)
+	- find minimum output feature to have good accuracy
+	- make a diagramm f(feature_size) = accuracy during encoder training
+
+	*** interesting things **
+	- how is back-propagation done. What about the feature vector in the 
+	middle??
+	
+
+DECODER:
+	- input Nx1 feature (find optimal N), output 256x256x3 image
+	- Fully connected ANN
+	
+	*** interesting things ***
+	
+
+
+TRAINING:
+	- get all project on google colab and edit the code there
+
+
+
+
+
+
+
+
+
+
+
+
+
+
