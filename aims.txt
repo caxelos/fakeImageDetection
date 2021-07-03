@@ -20,6 +20,8 @@ DECODER:
 	- Fully connected ANN
 	
 	*** interesting things ***
+	- can output layer be regression or classification for example?
+	check both
 	
 
 
