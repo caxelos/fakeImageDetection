@@ -1,12 +1,14 @@
 import argparse
 import importlib
 #from natsort import natsorted
-
+import matplotlib.pyplot  as plt
+from PIL import Image
 import torch
 import torch.nn as nn
 import torch.optim
 from torchvision import transforms
 from Dataset import Dataset
+from torchvision.utils import save_image
 
 
 def parse_args():
@@ -47,6 +49,11 @@ def train(model, num_epochs=5, batch_size=64, learning_rate=1e-3):
             optimizer.step()
             optimizer.zero_grad()
             print("Batch ", idx, " loss: ", loss)
+
+            if idx > 30:
+                save_image(img[0], str(idx)+"_orig.jpg")
+                save_image(recon[0], str(idx)+"_created.jpg")
+
 
         print('Epoch:{}, Loss:{:.4f}'.format(epoch+1, float(loss)))
         outputs.append((epoch, img, recon),)
