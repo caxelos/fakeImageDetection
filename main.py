@@ -38,6 +38,7 @@ def train(model, num_epochs=5, batch_size=64, learning_rate=1e-3):
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
+            print("here again")
 
         print('Epoch:{}, Loss:{:.4f}'.format(epoch+1, float(loss)))
         outputs.append((epoch, img, recon),)
