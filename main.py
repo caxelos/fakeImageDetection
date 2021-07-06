@@ -1,3 +1,4 @@
+import argparse
 import importlib
 #from natsort import natsorted
 
@@ -7,6 +8,14 @@ import torch.optim
 from torchvision import transforms
 from Dataset import Dataset
 
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--gate_kernel' ,type=int,default=3)
+    parser.add_argument('--channels', nargs='+',type=int,default=[16,32,64])
+    parser.add_argument('--batch_size' ,type=int,default=64)
+    args = parser.parse_args()
+    return args
 
 def train(model, num_epochs=5, batch_size=64, learning_rate=1e-3):
     torch.manual_seed(42)
@@ -27,7 +36,6 @@ def train(model, num_epochs=5, batch_size=64, learning_rate=1e-3):
                                                batch_size=batch_size,
                                                shuffle=True)
 
-
     # Loop over epochs
     for epoch in range(num_epochs):
 
@@ -38,7 +46,7 @@ def train(model, num_epochs=5, batch_size=64, learning_rate=1e-3):
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
-            print("here again")
+            print("Batch ", idx, " loss: ", loss)
 
         print('Epoch:{}, Loss:{:.4f}'.format(epoch+1, float(loss)))
         outputs.append((epoch, img, recon),)
@@ -46,10 +54,11 @@ def train(model, num_epochs=5, batch_size=64, learning_rate=1e-3):
 
 
 def main():
+    args = parse_args()
     module = importlib.import_module('Autoencoder')
-    model = module.Autoencoder()
+    model = module.Autoencoder(args)
     max_epochs = 20
-    outputs = train(model, num_epochs=max_epochs)
+    outputs = train(model, num_epochs=max_epochs, batch_size=args.batch_size)
 
 
 if __name__ == '__main__':
